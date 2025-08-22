@@ -2,7 +2,7 @@
 import CeldaSudoku from './CeldaSudoku.vue'
 import { reactive, ref } from 'vue'
 
-// Tablero inicial (puedes cambiar las pistas)
+// Tablero 
 const tablero = reactive([
   [1, null, null, null],
   [null, 1, 3, null],
@@ -12,53 +12,55 @@ const tablero = reactive([
 
 const mensaje = ref("")
 
-// 🔎 Función para validar el tablero
+// validar el tablero
 function validarSudoku() {
   const n = 4
 
   // Validar filas
   for (let fila = 0; fila < n; fila++) {
-    const vistos = new Set()
-    for (let col = 0; col < n; col++) {
-      const valor = tablero[fila][col]
-      if (valor) {
-        if (vistos.has(valor)) {
-          mensaje.value = `Error en la fila ${fila + 1}`
-          return
+    let numerosVistos = [];
+    for (let columna = 0; columna < n; columna++) {
+      let numero = tablero[fila][columna];
+      if (numero !== null && numero !== undefined && numero !== "") {
+        if (numerosVistos.includes(numero)) {
+          mensaje.value = "Hay un número repetido en la fila " + (fila + 1);
+          return; 
         }
-        vistos.add(valor)
+        numerosVistos.push(numero);
       }
     }
   }
 
-  // Validar columnas
-  for (let col = 0; col < n; col++) {
-    const vistos = new Set()
+
+    // Validar columnas
+  for (let columna = 0; columna < n; columna++) {
+    let numerosVistos = [];
     for (let fila = 0; fila < n; fila++) {
-      const valor = tablero[fila][col]
-      if (valor) {
-        if (vistos.has(valor)) {
-          mensaje.value = `Error en la columna ${col + 1}`
-          return
+      let numero = tablero[fila][columna];
+      if (numero !== null && numero !== undefined && numero !== "") {
+        if (numerosVistos.includes(numero)) {
+          mensaje.value = "Hay un número repetido en la columna " + (columna + 1);
+          return; 
         }
-        vistos.add(valor)
+        numerosVistos.push(numero);
       }
     }
   }
+
 
   // Validar bloques 2x2
-  for (let filaBase = 0; filaBase < n; filaBase += 2) {
-    for (let colBase = 0; colBase < n; colBase += 2) {
-      const vistos = new Set()
-      for (let fila = filaBase; fila < filaBase + 2; fila++) {
-        for (let col = colBase; col < colBase + 2; col++) {
-          const valor = tablero[fila][col]
-          if (valor) {
-            if (vistos.has(valor)) {
-              mensaje.value = `Error en el bloque (${filaBase / 2 + 1}, ${colBase / 2 + 1})`
-              return
+  for (let filaInicio = 0; filaInicio < n; filaInicio += 2) {
+    for (let columnaInicio = 0; columnaInicio < n; columnaInicio += 2) {
+      let numerosVistos = [];
+      for (let fila = filaInicio; fila < filaInicio + 2; fila++) {
+        for (let columna = columnaInicio; columna < columnaInicio + 2; columna++) {
+          let numero = tablero[fila][columna];
+          if (numero !== null && numero !== undefined && numero !== "") {
+            if (numerosVistos.includes(numero)) {
+              mensaje.value = "Hay un número repetido en el bloque (" + (filaInicio / 2 + 1) + ", " + (columnaInicio / 2 + 1) + ")";
+              return; 
             }
-            vistos.add(valor)
+            numerosVistos.push(numero);
           }
         }
       }

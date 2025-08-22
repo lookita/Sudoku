@@ -1,36 +1,33 @@
 {
-<<<<<<< HEAD
   "name": "vite-project",
   "private": true,
   "version": "0.0.0",
   "type": "module",
-  "main": "electron.js",
+  "main": "electron.mjs",
   "scripts": {
-  "dev": "vite",
-  "build": "vite build",
-  "preview": "vite preview",
-  "electron": "npx electron electron.js",
-  "electron-dev": "vite build --watch & npx electron electron.js"
-=======
-  "name": "sudoku",
-  "private": true,
-  "version": "0.0.0",
-  "type": "module",
-  "scripts": {
-    "dev": "vite",
+    "start": "electron-forge start",
+    "dev": "concurrently \"vite\" \"npm:electron-dev\"",
+    "electron-dev": "npx electron .",
     "build": "vite build",
-    "preview": "vite preview"
->>>>>>> eba47c81f2d847706c8a1f2170f638c939dc8820
+    "package": "electron-forge package",
+    "make": "electron-forge make"
   },
   "dependencies": {
+    "electron-squirrel-startup": "^1.0.1",
     "vue": "^3.5.18"
   },
   "devDependencies": {
+    "@electron-forge/cli": "^7.8.3",
+    "@electron-forge/maker-deb": "^7.8.3",
+    "@electron-forge/maker-rpm": "^7.8.3",
+    "@electron-forge/maker-squirrel": "^7.8.3",
+    "@electron-forge/maker-zip": "^7.8.3",
+    "@electron-forge/plugin-auto-unpack-natives": "^7.8.3",
+    "@electron-forge/plugin-fuses": "^7.8.3",
+    "@electron/fuses": "^1.8.0",
     "@vitejs/plugin-vue": "^6.0.1",
-<<<<<<< HEAD
+    "concurrently": "^9.2.0",
     "electron": "^37.3.1",
-=======
->>>>>>> eba47c81f2d847706c8a1f2170f638c939dc8820
     "vite": "^7.1.2"
   }
 }
